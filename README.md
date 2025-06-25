@@ -10,11 +10,11 @@ It extends the [Okta CLI Client](https://github.com/okta/okta-cli-client) to han
 * use [Terraformer](https://github.com/GoogleCloudPlatform/terraformer/blob/master/docs/okta.md) for to capture configuration that you plan to manage in Terraform moving forward
 * Consider using [Okta's PowerShell Module](https://github.com/okta/okta-powershell-cli) or the [Okta CLI Client](https://github.com/okta/okta-cli-client)
 
-## Setup
+## Prerequisites
 
 > ⚠️ Setup will change to using the official okta-cli-client when [this PR](https://github.com/okta/okta-cli-client/pull/18) lands
 
-To set up the supported `okta-cli-client`:
+First, set up the supported `okta-cli-client`:
 
 ```
 git clone git@github.com:edunham/okta-cli-client.git
@@ -28,7 +28,7 @@ Follow the `okta-cli-client` [configuration instructions](https://github.com/okt
 
 ## Installation
 
-Clone this repo and install the tool with `make install`
+After the Okta CLI is installed, clone this repo and install the tool with `make install`
 
 ## Usage
 
