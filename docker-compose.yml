@@ -1,0 +1,23 @@
+services:
+  envsync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: okta-envsync:latest
+    container_name: okta-envsync
+    environment:
+      # Set these in your .env file or export them before running docker-compose
+      - OKTA_CLI_CLIENT_ID=${OKTA_CLI_CLIENT_ID:-}
+      - OKTA_CLI_ORGURL=${OKTA_CLI_ORGURL:-}
+      - OKTA_CLI_TOKEN=${OKTA_CLI_TOKEN:-}
+    volumes:
+      # Mount local .okta directory to persist configuration and backups
+      - ./okta-data:/home/envsync/.okta
+    # Override default command to keep container running for interactive use
+    # Use docker-compose exec envsync envsync backup/restore commands
+    command: tail -f /dev/null
+    restart: unless-stopped
+
+volumes:
+  okta-data:
+    driver: local

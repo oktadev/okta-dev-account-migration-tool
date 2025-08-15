@@ -15,7 +15,7 @@ It extends the [Okta CLI Client](https://github.com/okta/okta-cli-client) to han
 You will need: 
 * Existing free dev org (for example, https://dev-123456.okta.com)
 * New Integrator free plan org (for example, https://trial-123456.okta.com)
-* Go language installed
+* Go language installed OR Docker (see Docker setup below)
 * Okta CLI Client (installation instructions below)
 * envsync (installation instructions below) 
 
@@ -105,6 +105,68 @@ Flags:
 
 Use "envsync [command] --help" for more information about a command.
 ```
+
+## Docker Setup (Alternative)
+
+If you prefer to use Docker instead of installing Go and the CLI client locally, you can use the provided Docker setup.
+
+### Prerequisites
+* Docker and Docker Compose installed
+* Your Okta credentials
+
+### Quick Start
+
+1. **Clone and navigate to the repository:**
+   ```bash
+   git clone https://github.com/oktadev/okta-dev-account-migration-tool.git
+   cd okta-dev-account-migration-tool
+   ```
+
+2. **Set up your Okta credentials:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Okta organization URL and API token
+   ```
+
+3. **Create your Okta configuration file:**
+   Create a file named `okta.yaml` in the project directory with your Okta credentials:
+   ```yaml
+   okta:
+     client:
+       connectionTimeout: 30
+       orgUrl: "https://your-org.okta.com"
+       proxy:
+         port: null
+         host: null
+         username: null
+         password: null
+       token: your_api_token_here
+   ```
+
+4. **Build and run the container:**
+   ```bash
+   docker-compose up -d
+   ```
+
+5. **Run backup:**
+   ```bash
+   docker-compose exec envsync envsync backup
+   ```
+
+6. **Run restore:**
+   ```bash
+   docker-compose exec envsync envsync restore -i /home/envsync/.okta/your-org-name -c /home/envsync/.okta/okta.yaml
+   ```
+
+7. **Stop the container:**
+   ```bash
+   docker-compose down
+   ```
+
+### Docker Notes
+* Backup files are persisted in the `./okta-data` directory on your host machine
+* The container includes both `envsync` and the required `okta-cli-client` with proper dependencies
+* Configuration is mounted from your local `okta.yaml` file
 
 ## Usage
 
