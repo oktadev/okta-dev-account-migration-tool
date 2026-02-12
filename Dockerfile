@@ -1,5 +1,5 @@
 # Multi-stage build for Okta Dev Account Migration Tool (envsync) with proper dependencies
-FROM golang:1.23.3-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 # Install git and make for building dependencies
 RUN apk add --no-cache git make openssh-client
